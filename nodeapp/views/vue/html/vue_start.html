@@ -1,0 +1,51 @@
+<div id="app" class="alert alert-block alert-info">
+	<p>1. 보이는대로 메시지를 찍어봅니다.</p>
+	<p>
+		{{ message }}
+	</p>
+</div>
+
+<div id="app2" class="alert alert-block alert-info">
+	<span v-bind:title="message">
+		2. 마우스를 올렸을 때 동적으로 현재 시간이 생성되어 저장됩니다.
+	</span>
+</div>
+
+<div id="app3" class="alert alert-block alert-info">
+	<p v-if="seen">
+		3. 브라우저 콘솔에서 app3.seen 을 true, false로 바꾸면 지금 이 문장은 보였다 안보였다 할 수 있습니다.
+	</p>
+</div>
+
+<div id="app4" class="alert alert-block alert-info">
+	<p>4. for를 이용하여 리스트 내의 여러 항목들을 출력할 수 있습니다.<br />
+		이것도 마찬가지로 콘솔에서 app4.todos[1].content 의 내용을 바꾸면 동적으로 변경됩니다.<br />
+		변경 뿐만 아니라 app4.todos.push({ content : '새로운 것' }); 처럼 추가도 가능하고 삭제도 가능 합니다.
+	</p>
+	<ol>
+		<li v-for="todo in todos">
+			{{ todo.content }}
+		</li>
+	</ol>
+</div>
+
+<div id="app5" class="alert alert-block alert-info">
+	<p>5. {{ message }}</p>
+	<button class="btn btn-primary btn-xs" v-on:click="reverseWords">뒤집어!!</button>
+</div>
+
+<div id="app6" class="alert alert-block alert-info">
+	<p>6. {{ message }}</p>
+	<input class="form-control" v-model="message">
+</div>
+
+<div id="app7" class="alert alert-block alert-info">
+	<ol>
+		<!-- todo-item 이라는 컴포넌트의 인스턴스를 만듭니다, 되게 신기하세요 -->
+		<todo-item
+			v-for="item in supermarket"
+			v-bind:todo="item"
+			v-bind:key="item.id">
+		</todo-item>
+	</ol>
+</div>
