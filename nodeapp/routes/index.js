@@ -7,11 +7,15 @@ var router = express.Router();
 // });
 
 router.get('/', function(req, res, next) {
-    res.render('index.html');
+    res.render('index.html', {
+        title: "Dashboard"
+    });
 });
 
-router.get('/insert', function(req, res, next) {
-    res.render('form.html');
+router.get('/vue', function(req, res, next) {
+    res.render('vuelist.html', {
+        title: "Vuejs Practice"
+    });
 });
 
 // router.get('/test', function(req, res, next) {
