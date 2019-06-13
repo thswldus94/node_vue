@@ -1,0 +1,30 @@
+<!-- header -->
+<% include ../../header.html %>
+
+<div id="app">
+
+<table>
+    <tbody>
+        <tr v-for="entry in "
+    </tbody>
+</table>
+
+</div>
+
+<!-- footer -->
+<% include ../../footer.html %>
+
+<script>
+
+
+$.get('/boardGet', {}, function(result){
+    var data = '';
+    $.each(result, function(idx, val) {
+        console.log(val);
+        data += '<tr><td>' + val.id + '</td><td>' + val.name + '</td><td>' + val.age + '</td></tr>';
+    });
+
+    $('#app').html(data);
+});
+
+</script>

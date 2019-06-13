@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+// mysql module import
+var mysqlCon = require('../db/dbConn')();
+var connection = mysqlCon.init();
+
 
 router.get('/', function(req, res, next) {
     res.render('index.html', {
@@ -18,11 +18,21 @@ router.get('/vue', function(req, res, next) {
     });
 });
 
-// router.get('/test', function(req, res, next) {
-//     //res.send('what the?');
-//     res.render('test.html', {
-//         say: 'what do you want to say?'
-//     });
-// });
+router.get('/board', function(req, res, next) {
+    res.render('./board/html/list.html', {
+        title: "게시판 만들기!"
+    });
+});
+
+router.get('/boardGet', function(req, res, next) {
+    connection.query("select * from test;", function(err, result, fields) {
+        if (err) {
+            console.log('쿼리에러');
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 
 module.exports = router;
