@@ -12,6 +12,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/intro', function(req, res, next) {
+    res.render('intro/index.html');
+});
+
 router.get('/vue', function(req, res, next) {
     res.render('vuelist.html', {
         title: "Vuejs Practice"
