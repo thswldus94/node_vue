@@ -20,8 +20,7 @@ var app23 = new Vue({
 	el: '#app23',
 	data : {
 		firstName: 'Jiyeon',
-		lastName: 'Son',
-		fullName: 'Son Jiyeon'
+		lastName: 'Son'
 	},
 	// 명령형 코딩. 했던 코드를 계속해서 반복함
 	// watch: {
