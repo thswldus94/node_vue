@@ -1,20 +1,20 @@
 <div id="app" class="alert alert-block alert-info">
-	<h4>1. 보이는대로 메시지를 찍어봅니다.</h4>
+	<h5>1. 보이는대로 메시지를 찍어봅니다.</h5>
 	<p>
 		{{ message }}
 	</p>
 </div>
 
 <div id="app2" class="alert alert-block alert-info">
-	<h4 v-bind:title="message">
+	<h5 v-bind:title="message">
 		2. 마우스를 올렸을 때 동적으로 현재 시간이 생성되어 저장됩니다.
-	</h4>
+	</h5>
 </div>
 
 <div id="app3" class="alert alert-block alert-info">
-	<h4 v-if="seen">
+	<h5 v-if="seen">
 		3. 브라우저 콘솔에서 app3.seen 을 true, false로 바꾸면 지금 이 문장은 보였다 안보였다 할 수 있습니다.
-	</h4>
+	</h5>
 </div>
 
 <div id="app4" class="alert alert-block alert-info">
@@ -30,12 +30,12 @@
 </div>
 
 <div id="app5" class="alert alert-block alert-info">
-	<h4>5. {{ message }}</h4>
+	<h5>5. {{ message }}</h5>
 	<button class="btn btn-primary btn-xs" v-on:click="reverseWords">뒤집어!!</button>
 </div>
 
 <div id="app6" class="alert alert-block alert-info">
-	<h4>6. {{ message }}</h4>
+	<h5>6. {{ message }}</h5>
 	<input class="form-control" v-model="message">
 </div>
 
