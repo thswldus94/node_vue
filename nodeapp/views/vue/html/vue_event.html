@@ -64,3 +64,16 @@
 		<li v-for="(event, idx) in eventList">{{ event.name }}</li>
 	</ul>
 </div>
+
+<div class="alert alert-block alert-info">
+	<h5>7. .exact 수식어와 마우스 버튼 수식어</h5>
+	<p>.exact는 정확한 조합을 맞춰서 실행되도록 할 때 사용합니다.</p>
+	<p>마우스  수식어는 .left, .right, .middle 이 있습니다~</p>
+	<div id="app67">
+		<button class="btn btn-primary" v-on:click.ctrl.exact="onCtrlClick">오직 컨트롤 키만 누르고 클릭했을 때 발생됩니다!</button>
+	</div>
+	<br />
+	<div id="app68">
+		<button class="btn btn-primary" v-on:click.exact="onClick">오직 어떠한 키도 눌리지 않고 마우스만 눌렀을 때 발생됩니다!</button>
+	</div>
+</div>

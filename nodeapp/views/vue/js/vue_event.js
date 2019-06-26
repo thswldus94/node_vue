@@ -98,3 +98,21 @@ var app66_1 = new Vue({
 		]
 	}
 });
+
+var app67 = new Vue({
+	el: '#app67',
+	methods: {
+		onCtrlClick: function() {
+			alert('당신은 지금 컨트롤 키만! 누르고있습니다. 다른 키는 안누름');
+		}
+	}
+});
+
+var app68 = new Vue({
+	el: '#app68',
+	methods: {
+		onClick: function() {
+			alert('당신은 마우스 클릭 이벤트만 누르고있습니다!!');
+		}
+	}
+});

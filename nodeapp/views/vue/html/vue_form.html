@@ -1,0 +1,116 @@
+<!-- header -->
+<% include ../../header.html %>
+
+<!-- PAGE CONTENT BEGINS -->
+<div class="mb-3 card">
+	<div class="card-header-tab card-header-tab-animation card-header">
+		<div class="card-header-title">
+			<i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+			<h4 class="blue mb-0">
+				<span class="col-xs-6"> 1. Vue form</span>
+			</h4>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="alert alert-block alert-info">
+			<h5>1. v-model</h5>
+			<p>폼 input과 textarea 엘리먼트에 양방향 데이터를 바인딩 할 수 있습니다.</p>
+			<p class="text-danger">중요 1) 기본적으로 우리가 &lt;input value="초기값"&gt; 같이 생성하는 초기값은 Vue에서 인식할 수 없습니다!! 무조건 Javascript Vue 코드 내에서 초기화 시켜줘야 합니다~</p>
+			<p class="text-danger">중요 2) 한국어, 일본어 등 언어가 필요한 경우 v-model이 업데이트 되지 않습니다 ㅠㅠ input이벤트를 대신 사용해야 합니다!</p>
+			<div id="app00">
+				<input class="form-control" v-model="message" placeholder="여기를 수정해서 바꿔보셔유!"/>
+				<p class="mt-1">메시지: {{ message }}</p>
+				<br />
+				<p>textarea도 사용할 수 있습니당! 여러줄로 출력할 수 있어용</p>
+				<p class="text-danger">중요 3) &lt;textarea&gt; [[ message ]] &lt;/textarea&gt; 는 먹히지 않아용ㅋㅋ</p>
+				<textarea class="form-control" v-model="areaMessage" placeholder="textarea 여기를 수정해서 바꿔보셔유!"></textarea>
+				<p class="mt-1" style="white-space: pre-line">메시지: {{ areaMessage }}</p>
+			</div>
+		</div>
+
+
+		<div class="alert alert-block alert-info">
+			<h5>2. 체크박스, 셀렉트박스, 라디오버튼</h5>
+			<p><i class="pe-7s-music"></i> 체크박스는 단일 Boolean값을 가집니다.</p>
+			<div id="app01">
+				<div class="custom-checkbox custom-control">
+					<input type="checkbox" id="isCheckboxTest" v-model="isChecked" class="custom-control-input">
+					<label class="custom-control-label" for="isCheckboxTest">지금 체크상태는! {{ isChecked }}</label>
+				</div>
+				<br />
+
+				<p><i class="pe-7s-music"></i> 여러개 체크박스는 배열값을 바인딩할수도 있겠죠??</p>
+				<div class="custom-checkbox custom-control">
+					<input type="checkbox" id="hotdog" value="Hotdog" v-model="myFoodCheckes" class="custom-control-input">
+					<label class="custom-control-label" for="hotdog">Hotdog</label>
+				</div>
+				<div class="custom-checkbox custom-control">
+					<input type="checkbox" id="pizza" value="Pizza" v-model="myFoodCheckes" class="custom-control-input">
+					<label class="custom-control-label" for="pizza">Pizza</label>
+				</div>
+				<div class="custom-checkbox custom-control">
+					<input type="checkbox" id="chicken" value="Chicken" v-model="myFoodCheckes" class="custom-control-input">
+					<label class="custom-control-label" for="chicken">Chicken</label>
+				</div>
+				<br />
+				<p>니가 지금 먹고싶은것들: {{ myFoodCheckes }}</p>
+				<br />
+
+				<p><i class="pe-7s-music"></i> 라디오버튼도 바인딩 가능합니다!!</p>
+				<div class="position-relative form-group">
+					<div class="custom-radio custom-control">
+						<input type="radio" id="oi" value="oi" v-model="dietFoodChecked" class="custom-control-input">
+						<label class="custom-control-label" for="oi">오이</label>
+					</div>
+					<div class="custom-radio custom-control">
+						<input type="radio" id="konyak" value="konyak" v-model="dietFoodChecked" class="custom-control-input">
+						<label class="custom-control-label" for="konyak">곤약</label>
+					</div>
+					<div class="custom-radio custom-control">
+						<input type="radio" id="fruit" value="fruit" v-model="dietFoodChecked" class="custom-control-input">
+						<label class="custom-control-label" for="fruit">과일</label>
+					</div>
+				</div>
+				<br />
+				<p>다이어트 할라면 하나만 먹어라: {{ dietFoodChecked }}</p>
+				<br />
+
+				<p><i class="pe-7s-music"></i> 마지막 셀렉트박스!!</p>
+				<p class="text-danger">중요 4) 왠만하면 기본값(초기값) 설정을 해주는게 좋습니다~ 안그러면 선택없음으로 렌더링되거든요 ㅠㅠ</p>
+				<div class="position-relative form-group">
+					<label for="carList" class="">내 차는 어떤걸까요ㅋㅋ</label>
+					<select v-model="carList" id="carList" class="form-control">
+						<option disabled value="">선택하세요!</option>
+						<option>귀요미 모닝</option>
+						<option>제네시스</option>
+						<option>람보르귀니~</option>
+						<option>니로</option>
+					</select>
+					<br />
+					<p>내 차는?!: {{ carList }}</p>
+				</div>
+				<br />
+
+				<p><i class="pe-7s-music"></i> 진짜 마지막 다중 셀렉트박스!!ㅋㅋ v-for를 이용해서 option을 추가해서 짬뽕해볼겡</p>
+				<div class="position-relative form-group">
+					<label for="selectMulti" class="">여러개 선택..이제 할 예제가 없다</label>
+					<select multiple="" v-model="selectMulti" id="selectMulti" class="form-control">
+						<option v-for="item in selectItems" v-bind:value="item.id">
+							{{ item.name }}
+						</option>
+					</select>
+					<br />
+					<p>고른것: {{ selectMulti }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- footer -->
+<% include ../../footer.html %>
+
+<script>
+<% include ../js/vue_form.js %>
+</script>
