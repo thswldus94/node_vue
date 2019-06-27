@@ -24,3 +24,12 @@ var app01 = new Vue({
 		]
 	}
 });
+
+var app02 = new Vue({
+	el: '#app02',
+	data: {
+		message: '',
+		changeTypeNumber: '',
+		trimString: ''
+	}
+});

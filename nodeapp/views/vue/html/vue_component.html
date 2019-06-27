@@ -1,0 +1,61 @@
+<div class="alert alert-block alert-info">
+	<h5>1. v-if</h5>
+	<p>말 그대로 if문을 사용할 수 있어요</p>
+	<div id="app41">
+		<p  v-if="ok">ok인 경우 Yes가 나타납니다!</p>
+		<p  v-else="ok">else 조건으로 맞을 시 No가 나타납니다!</p>
+	</div>
+	<br />
+	<div id="app42">
+		<p>쉽게 말해 가상의 엘리먼트를 만들 수도 있습니다</p>
+		<p>하나의 엘리먼트에만 추가가 가능하지만 여러개를 추가하고 싶을 수도 있잖아요??</p>
+		<p>그럴때 template 엘리먼트를 사용합니다. 물론 이건 나중에 렌더링된 결과에는 나오지 않아요~</p>
+		<template v-if="wanttoshow">
+			<span class="text-warning">노랑글씨</span>
+			<span class="text-danger">빨강글씨</span>
+			<span>이건 이제 wanttoshow 속성이 참인경우 보입니다!!</span>
+		</template>
+	</div>
+	<br />
+	<div id="app43">
+		<h5>2. v-else</h5>
+		<p>v-else 디렉티브는 반드시 v-if 뒤에 위치해야 합니다! v-else-if도 있어요~</p>
+		<span v-if="randomNum > 100">
+			랜덤숫자가 100보다 큰 경우 내가 보일거예요!
+		</span>
+		<span v-else-if="randomNum > 50">
+			랜덤숫자가 50보다 큰 경우 내가 보임!!
+		</span>
+		<span v-else>이제는 안보입니다!</span>
+	</div>
+	<br />
+	<div id="app44">
+		<h5>3. Key를 이용하여 재사용 가능한 엘리먼트 제어</h5>
+		<p>재사용 가능한 엘리먼트 제어가 쉬워요. 예를들어서 로그인 할 때<br />
+			아이디를 넣는지, 이메일을 넣는지 구분할 수 있는 코드를 짜볼게요.<br />
+			단순히 key를 사용하지 않는 다면 두 개는 동일한 엘리먼트로 사용하기 때문에<br />
+			인풋 안의 내용이 지워지지 않아요. 그럴때 이건 유일하다!! 라는걸 알려주기 위해 key를 씁니다<br />
+			유일한 id같은 개념이죠. 재사용 하지 않고 그린답니다.
+		</p>
+		<template v-if="loginType === 'userid'">
+			<label>사용자 아이디</label>
+			<input class="form-control" placeholder="ID를 입력하세요" ke="userid-input"/>
+		</template>
+		<template v-else>
+			<label>사용자 이메일</label>
+			<input class="form-control" placeholder="이메일을 입력하세요" key="email-input"/>
+		</template>
+	</div>
+	<br />
+	<div id="app45">
+		<h5>4. v-show</h5>
+		<p>v-show는 단순히 toggle느낌입니다. display 속성 토글 수준?<br />
+		처음부터 계속 렌더링 되고 DOM에 남아있기 때문에 template 구문과 else, if 구문도 동작하지 않습니다.</p>
+		<p>
+			v-if는 레알 조건부 렌더링 입니다. 대신 렌더링 초기에 조건이 false인 경우 아무것도 안합니다<br />
+			망할놈이 일도 안하는거죠;; true가 나올 때 까지 일을 안합니다<br />
+			대신 v-show는 처음부터 무조건 렌더링됩니다<br />
+			바뀌는 빈도가 많으면 v-show, 적으면 v-if 가 쓰기 좋습니다.
+			</p>
+	</div>
+</div>

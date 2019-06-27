@@ -104,6 +104,28 @@
 				</div>
 			</div>
 		</div>
+
+
+		<div class="alert alert-block alert-info">
+			<h5>3. 수식어</h5>
+			<div id="app02">
+				<p>기본적으로 v-model은 각 입력 이벤트 후 입력과 데이터를 동기화해요. .lazy 수식어를 사용하여 change이벤트 이후에 동기화 할 수 있습니당</p>
+				<p>값을 전부 다 치고(선택하고) 나서 변경되는?! 느낌이죵~</p>
+				<br />
+				<input class="form-control" v-model.lazy="message" placeholder="말을 다 칠때까지 안바뀝니다"/>
+				<p class="mt-1">메시지: {{ message }}</p>
+
+				<br />
+				<p>사용자 입력이 자동으로 숫자로 형변환 할 수 있도록! .number가 있어요 (짱편하네요 자바스크립트에서 노가다로 안바꿔줘도 되니까요)</p>
+				<input class="form-control" v-model.number="changeTypeNumber" placeholder="숫자로 바꿔줌~"/>
+				<p class="mt-1">지금치는 숫자의 자료형은?? {{ typeof(changeTypeNumber) }}</p>
+
+				<br />
+				<p>input내용을 자동으로 trim해줘요! 앞 뒤의 공백을 잘라냅니다~ (와 이것도 편하네요 노가다로 안해줘도 ㅠㅠ)</p>
+				<input class="form-control" v-model.trim="trimString" placeholder="trim 작업 바꿔줌~"/>
+				<p class="mt-1">Trim되어진 문자열은 {{ trimString }}</p>
+			</div>
+		</div>
 	</div>
 </div>
 
