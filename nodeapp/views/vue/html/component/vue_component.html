@@ -1,0 +1,144 @@
+<!-- header -->
+<% include ../../../header.html %>
+
+<!-- PAGE CONTENT BEGINS -->
+<div class="mb-3 card">
+	<div class="card-header-tab card-header-tab-animation card-header">
+		<div class="card-header-title">
+			<i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+			<h4 class="blue mb-0">
+				<span class="col-xs-6"> 1. Vue 컴포넌트 사용하기</span>
+			</h4>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="alert alert-block alert-info">
+			<h5>1. 전역등록</h5>
+			<p class="mt-1">아래와 같은 형식으로 Vue 인스턴스를 생성했습니다.</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre class="mb-0">
+new Vue({
+	el: '#test'
+})
+				</pre>
+			</div>
+			<p class="mt-1">전역 컴포넌트를 사용하려면 아래와 같이 사용합니다</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre class="mb-0">
+Vue.component('my-component', {
+	// 옵션
+});
+
+// 이렇게 지정이 되면 &lt;my-component&gt;&lt;/my-component&gt; 로 사용할 수 있습니다.
+// ※꼭 인스턴스를 생성하기 전에 컴포넌트를 먼저 등록 해 주어야 합니다!!※
+
+&lt;div id="com01"&gt;
+	&lt;my-component&gt;&lt;/my-component&gt;
+&lt;/div&gt;
+
+// 등록
+Vue.component('my-component', {
+	template: '&lt;div&gt;사용자 정의 컴포넌트 입니다!&lt;/div&gt;'
+})
+
+// 루트 인스턴스 생성
+new Vue({
+	el: '#com01'
+})
+				</pre>
+			</div>
+			<div id="com01">
+				여기에 결과가 나오게됩니다~~^^ <br />
+				<my-component></my-component>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>2. 지역등록</h5>
+			<p class="mt-1">모든 컴포넌트를 전역으로 등록 할 필요는 없겠죠?? components 인스턴스 옵션으로 등록하여 원하는 부분에서만 사용할 수 있어요.</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+var chiild = {
+	template: '&lt;div&gt;사용자 정의 컴포넌트 지역 222&lt;/div&gt;'
+}
+
+new Vue({
+	el: '#com02'
+	components: {
+		// my-component는 상위 템플릿에서만 사용할 수 있어요
+		'my-component': Child
+	}
+})
+				</pre>
+			</div>
+			<div id="com02">
+				여기에 결과가 나오게됩니다~~^^ <br />
+				<my-component></my-component>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>3. DOM 템플릿 구문 분석 경고에 대한 처리는?!</h5>
+			<p class="mt-1">DOM을 템플릿으로 사용할때.. 예를들면 table, ul, ol, select 등은 안에 특정한 DOM엘리먼트들만 올 수 있지요?</p>
+			<p class="mt-1">[table => tr td], [ul, ol => li], [select => option] 등등..</p>
+			<p class="mt-1 text-danger">예를들어 테이블 내에 tr, td구분을 template로 사용한다면 어?!이거 테이블형태랑 좀 다른데??1 이상한데?? 하고 삐꾸같이 그려지면서 에러를 냅니다!!</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+&lt;table&gt;
+	&lt;my-row&gt;데이터데이터&lt;/my-row&gt;
+&lt;/table&gt;
+
+// 대신 "is"옵션을 사용합니다
+
+&lt;table&gt;
+	&lt;tr is="my-row"&gt;&lt;/tr&gt;
+&lt;/table&gt;
+				</pre>
+			</div>
+			<br />
+			<table id="com03-error" class="table table-bordered table-hover">
+				<!-- <my-row></my-row> -->
+				<tr is="my-row"></tr>
+			</table>
+
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>4. 데이터는 반드시 함수여야 합니다.</h5>
+			<p class="mt-1">data값은 꼭 함수여야 합니다. 일반적으로 정의하듯이 하면 에러를냅니다</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+Vue.component('my-com', {
+	template: '{{message}}',
+	data: {
+		message: '아아아'
+	}
+});
+				</pre>
+			</div>
+			<br />
+
+			<div id="com05">
+				<simple-counter></simple-counter>
+				<simple-counter></simple-counter>
+				<simple-counter></simple-counter>
+			</div>
+
+			<p class="mt-1">근데 이렇게 하니까 셋 다 숫자가 증가하네요 ㅠㅠ? return { counter : 0 } 으로 변경하여 각자 동작할 수 있도록 해줍니다.</p>
+
+			<div id="com05-1">
+				<simple-counter></simple-counter>
+				<simple-counter></simple-counter>
+				<simple-counter></simple-counter>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- footer -->
+<% include ../../../footer.html %>
+
+<script>
+<% include ../../js/component/vue_component.js %>
+</script>
