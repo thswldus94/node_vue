@@ -1,0 +1,77 @@
+
+<!-- PAGE CONTENT BEGINS -->
+<div class="mb-3 card">
+	<div class="card-header-tab card-header-tab-animation card-header">
+		<div class="card-header-title">
+			<i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+			<h4 class="blue mb-0">
+				<span class="col-xs-6"> 2. Props</span>
+			</h4>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="alert alert-block alert-info">
+			<h5>1. 컴포넌트는 왜 쓰나요?</h5>
+			<p class="mt-1">부모-자식 관계에서 가장 일반적으로 함께 사용하기 위한 것입니다.</p>
+			<p class="mt-1">부모는 자식한테 데이터를 전달해야 할 수도 있고?! 자식은 부모한테 일어난 일들을 알려줘야 할 때도 있어요.</p>
+			<p class="mt-1">그렇다고 이 둘을 구분없이 함께 사용하기보다는 명확히 정의된 인터페이스를 통하여 분리된 상태로 유지가 필요해요.</p>
+			<p class="mt-1 text-danger">Vue.js 에서 부모-자식 컴포넌트에서 props 는 아래로, events 는 위로 라고 생각하면 됩니다.<br />
+			부모는 props 를 통하여 자식에게 데이터를 전달하고, 자식은 events 를 이용하여 부모에게 메시지를 보내죠.
+			</p>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>2. Prop로 데이터 전달해보자</h5>
+			<p class="mt-1">모든 컴포넌트 인스턴스에는 "자체 격리된 범위"가 있습니다.</p>
+			<p class="mt-1">이 말은 무엇이냐, 하위 컴포넌트에서 상위 데이터를 직접 참조할 수 없고, 그럼 안되겠죠</p>
+
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+Vue.component('child', {
+	// props 정의
+	props: ['whatdidyousay'],
+	// 데이터와 마찬가지로 prop는 템플릿 내부에서 사용할 수 있습니다
+	// vm의 vm.whatdidyousay 로 사용할 수 있습니다.
+	template: '&lt;span&gt;{{ whatdidyousay }}&lt;/span&gt;'
+})
+
+new Vue({el: '#prop01'})
+				</pre>
+			</div>
+			<div id="prop01">
+				여기에 제가 자식노드로 prop (메시지전달) 한게 나올거예요<br />
+				여기 => <child whatdidyousay="ㅎㅇㅎㅇ~"></child>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>3. CamelCase vs kebab-case 뭘 쓰면 좋을까??</h5>
+			<p class="mt-1">HTML 대소문자를 구별하지 않기 때문에 kebab-case (하이픈으로 구분)을 써야 합니다.</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+Vue.component('jiyeon', {
+	// Javascript는 camelCase
+	props: ['myMessage'],
+	template: '&lt;span&gt;{{ myMessage }}&lt;/span&gt;'
+})
+				</pre>
+			</div>
+			<div id="prop02">
+				여기에 제가 자식노드로 prop (메시지전달) 한게 나오고 자바스크립트에서는 camelCase, html에서는 하이픈구분으로 나오는걸 볼 수 있어요<br />
+				여기 => <jiyeon my-message="html은 왜 안됩니까?!"></jiyeon>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>4. 동적으로 props를 전달해보자</h5>
+			<p class="mt-1">v-bind를 이용항 부모 데이터에 props를 동적으로 바인딩 할 수 있어요.<br />
+			데이터가 상위에서 업데이트 된다면 하위에 전달할 수 있다는 그런의미입니다 ㅋㅋ</p>
+
+			<div id="prop03">
+				<input class="form-control" v-model="parentMsg" />
+				<br />
+				위에 쓰면 여기나옴 => <child v-bind:my-message="parentMsg"></child>
+			</div>
+		</div>
+	</div>
+</div>
