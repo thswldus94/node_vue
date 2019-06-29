@@ -73,5 +73,53 @@ Vue.component('jiyeon', {
 				위에 쓰면 여기나옴 => <child v-bind:my-message="parentMsg"></child>
 			</div>
 		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>5. 리터럴 vs 동적</h5>
+			<p class="mt-1">나같은 쪼렙들이 자주하는 실수로 리터럴 구문으로 숫자를 전달하려고 해요 ㅠㅠ</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+&lt;comp some-prop="1"&gt;&lt;/comp&gt;
+
+//근데 이거는 리터럴이기 때문에 문자열 "1" 이 전달돼요
+javascript를 전달하려면 v-bind 를 사용해야 합니다.
+
+&lt;comp v-bind:some-prop="1"&gt;&lt;/comp&gt;
+				</pre>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>6. 단방향 데이터 흐름</h5>
+			<p class="mt-1">모든 props는 하위속성과 상위 속성 사이에서 "단방향" 데이터 바인딩을 형성해요<br />
+			상위 속성이 업데이트 되면 하위로 흐르지만, 반대로는 안됩니다<br />
+			처음에는 아뭐여 불편하자나??? 할수도 있겠지만 이렇게 하면 하위에서 상위로 실수로 데이터가 바뀐 경우<br />
+			추적과 디버깅이 어려운 점을 방지할 수 있거든요.</p>
+			<br />
+			<p class="mt-1">prop를 변경하고 싶은 경우가 여기 있습니다 ㅋㅋ</p>
+			<p class="mt-1 text-danger">1. 초기값을 전달하는데만 사용하고 하위 컴포넌트는 이를 로컬데이터 속성으로 사용만 하는 경우</p>
+			<p class="mt-1">prop의 초기 값을 초기 값으로 사용한다는 로컬 데이터 속성을 정의하세요</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+props: ['initCnt'],
+data: function() {
+	return { counter: this.initCnt }
+}
+				</pre>
+			</div>
+			<br />
+			<p class="mt-1 text-danger">2. prop는 변경되어야 할 원시 값으로 전달됩니다</p>
+			<p class="mt-1">prop 값으로 부터 계산된 속성을 정의합니다.</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+props: ['size'],
+computed: {
+	normalizedSize: function() {
+		return this.size.trim().toLowerCase()
+	}
+}
+				</pre>
+			</div>
+		</div>
 	</div>
 </div>
