@@ -1,21 +1,42 @@
 // localstorage persistence
 // 나중에는 mysql 연동으로 바꿀거임
 
-var STORAGE_KEY = 'todos-vuejs-2.0';
-var todoStorage = {
+// var STORAGE_KEY = 'todos-vuejs-2.0';
+// var todoStorage = {
+//     fetch: function() {
+//         var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+//         //console.log(todos);
+//         $.each(todos, function(todo, idx) {
+//             todo.id = idx;
+//         });
+//         todoStorage.uid = todos.length;
+//         return todos;
+//     },
+//     save: function(todos) {
+//         localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+//     }
+// }
+
+var todos = [];
+var todoSelect = {
     fetch: function() {
-        var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        console.log(todos);
-        $.each(todos, function(todo, idx) {
-            todo.id = idx;
+        console.log('aaa');
+        $.ajax({
+            method: 'get',
+            url: "/get?type=todo",
+            async: false
+        }).done(function(data) {
+            //console.log(data);
+            todos = data;
         });
-        todoStorage.uid = todos.length;
+
+        console.log(todos);
+
         return todos;
-    },
-    save: function(todos) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
     }
 }
+
+//todoSelect.fetch();
 
 
 // visiblity filteredTodos
@@ -39,7 +60,8 @@ var filters = {
 var app = new Vue({
     // app initial
     data: {
-        todos: todoStorage.fetch(),
+        //todos: todoStorage.fetch(),
+        todos: todoSelect.fetch(),
         newTodo: '',
         editedTodo: null,
         visiblity: 'all'
@@ -49,7 +71,7 @@ var app = new Vue({
     watch: {
         todos: {
             handler: function(todos) {
-                todoStorage.save(todos);
+                todoSelect.save(todos);
             },
             deep: true
         }
@@ -90,7 +112,7 @@ var app = new Vue({
             }
 
             this.todos.push({
-                id: todoStorage.uid++,
+                id: todoSelect.uid++,
                 title: value,
                 complated: false
             });
@@ -122,6 +144,13 @@ var app = new Vue({
 
         removeCompleted: function() {
             this.todos = filters.active(this.todos);
+        }
+    },
+    directives: {
+        'todo-focus' : function (el, binding) {
+            if (binding.value) {
+                el.focus();
+            }
         }
     }
 });
