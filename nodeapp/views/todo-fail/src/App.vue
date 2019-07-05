@@ -13,9 +13,10 @@
         </div>
 
         <div>
-            <list v-bind:selected-tab="selectedTab" v-bind:data="todoList
+            <list v-bind:selected-tab="selectedTab" v-bind:data="todoList"
                     v-on:@finish="onClickFinish"
-                    v-in:@reset="onClickReset">
+                    v-in:@reset="onClickReset"
+            >
             </list>
         </div>
     </div>

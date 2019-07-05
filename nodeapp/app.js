@@ -8,15 +8,32 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-var server = app.listen(3000, function() {
-    console.log("Express server has started on port 3000");
+
+var http = require('http');
+var https = require('https');
+var fs = require('fs');
+
+app.set('port', 3000);
+
+var options = {
+    key: fs.readFileSync('./ssl/private.pem'),
+    cert: fs.readFileSync('./ssl/public.pem')
+};
+
+var httpsServer = https.createServer(options, app);
+httpsServer.listen('3000', function() {
+    console.log("https start");
 });
 
+
+
+
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'dist')]);
 //app.set('view engine', 'pug');
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
 

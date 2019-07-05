@@ -1,0 +1,189 @@
+
+<!-- PAGE CONTENT BEGINS -->
+<div class="mb-3 card">
+	<div class="card-header-tab card-header-tab-animation card-header">
+		<div class="card-header-title">
+			<i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+			<h4 class="blue mb-0">
+				<span class="col-xs-6"> 2. Props</span>
+			</h4>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="alert alert-block alert-info">
+			<h5>1. 컴포넌트는 왜 쓰나요?</h5>
+			<p class="mt-1">부모-자식 관계에서 가장 일반적으로 함께 사용하기 위한 것입니다.</p>
+			<p class="mt-1">부모는 자식한테 데이터를 전달해야 할 수도 있고?! 자식은 부모한테 일어난 일들을 알려줘야 할 때도 있어요.</p>
+			<p class="mt-1">그렇다고 이 둘을 구분없이 함께 사용하기보다는 명확히 정의된 인터페이스를 통하여 분리된 상태로 유지가 필요해요.</p>
+			<p class="mt-1 text-danger">Vue.js 에서 부모-자식 컴포넌트에서 props 는 아래로, events 는 위로 라고 생각하면 됩니다.<br />
+			부모는 props 를 통하여 자식에게 데이터를 전달하고, 자식은 events 를 이용하여 부모에게 메시지를 보내죠.
+			</p>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>2. Prop로 데이터 전달해보자</h5>
+			<p class="mt-1">모든 컴포넌트 인스턴스에는 "자체 격리된 범위"가 있습니다.</p>
+			<p class="mt-1">이 말은 무엇이냐, 하위 컴포넌트에서 상위 데이터를 직접 참조할 수 없고, 그럼 안되겠죠</p>
+
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+Vue.component('child', {
+	// props 정의
+	props: ['whatdidyousay'],
+	// 데이터와 마찬가지로 prop는 템플릿 내부에서 사용할 수 있습니다
+	// vm의 vm.whatdidyousay 로 사용할 수 있습니다.
+	template: '&lt;span&gt;{{ whatdidyousay }}&lt;/span&gt;'
+})
+
+new Vue({el: '#prop01'})
+				</pre>
+			</div>
+			<div id="prop01">
+				여기에 제가 자식노드로 prop (메시지전달) 한게 나올거예요<br />
+				여기 => <child whatdidyousay="ㅎㅇㅎㅇ~"></child>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>3. CamelCase vs kebab-case 뭘 쓰면 좋을까??</h5>
+			<p class="mt-1">HTML 대소문자를 구별하지 않기 때문에 kebab-case (하이픈으로 구분)을 써야 합니다.</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+Vue.component('jiyeon', {
+	// Javascript는 camelCase
+	props: ['myMessage'],
+	template: '&lt;span&gt;{{ myMessage }}&lt;/span&gt;'
+})
+				</pre>
+			</div>
+			<div id="prop02">
+				여기에 제가 자식노드로 prop (메시지전달) 한게 나오고 자바스크립트에서는 camelCase, html에서는 하이픈구분으로 나오는걸 볼 수 있어요<br />
+				여기 => <jiyeon my-message="html은 왜 안됩니까?!"></jiyeon>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>4. 동적으로 props를 전달해보자</h5>
+			<p class="mt-1">v-bind를 이용항 부모 데이터에 props를 동적으로 바인딩 할 수 있어요.<br />
+			데이터가 상위에서 업데이트 된다면 하위에 전달할 수 있다는 그런의미입니다 ㅋㅋ</p>
+
+			<div id="prop03">
+				<input class="form-control" v-model="parentMsg" />
+				<br />
+				위에 쓰면 여기나옴 => <child v-bind:my-message="parentMsg"></child>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>5. 리터럴 vs 동적</h5>
+			<p class="mt-1">나같은 쪼렙들이 자주하는 실수로 리터럴 구문으로 숫자를 전달하려고 해요 ㅠㅠ</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+&lt;comp some-prop="1"&gt;&lt;/comp&gt;
+
+//근데 이거는 리터럴이기 때문에 문자열 "1" 이 전달돼요
+javascript를 전달하려면 v-bind 를 사용해야 합니다.
+
+&lt;comp v-bind:some-prop="1"&gt;&lt;/comp&gt;
+				</pre>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>6. 단방향 데이터 흐름</h5>
+			<p class="mt-1">모든 props는 하위속성과 상위 속성 사이에서 "단방향" 데이터 바인딩을 형성해요<br />
+			상위 속성이 업데이트 되면 하위로 흐르지만, 반대로는 안됩니다<br />
+			처음에는 아뭐여 불편하자나??? 할수도 있겠지만 이렇게 하면 하위에서 상위로 실수로 데이터가 바뀐 경우<br />
+			추적과 디버깅이 어려운 점을 방지할 수 있거든요.</p>
+			<br />
+			<p class="mt-1">prop를 변경하고 싶은 경우가 여기 있습니다 ㅋㅋ</p>
+			<p class="mt-1 text-danger">1. 초기값을 전달하는데만 사용하고 하위 컴포넌트는 이를 로컬데이터 속성으로 사용만 하는 경우</p>
+			<p class="mt-1">prop의 초기 값을 초기 값으로 사용한다는 로컬 데이터 속성을 정의하세요</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+props: ['initCnt'],
+data: function() {
+	return { counter: this.initCnt }
+}
+				</pre>
+			</div>
+			<br />
+			<p class="mt-1 text-danger">2. prop는 변경되어야 할 원시 값으로 전달됩니다</p>
+			<p class="mt-1">prop 값으로 부터 계산된 속성을 정의합니다.</p>
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+props: ['size'],
+computed: {
+	normalizedSize: function() {
+		return this.size.trim().toLowerCase()
+	}
+}
+				</pre>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>7. Prop 검증</h5>
+			<p class="mt-1">컴포넌트가 받는 중인 prop에 대한 요구사항도 지정할 수 있어요.<br />
+			요구사항이 충족되지 않으면 바로 경고 !! 주로 자료형같은곳에 많이 쓰이죠~ 정말. 오졌다</p>
+			<br />
+			<div class="alert alert-secondary fade show" role="alert">
+				<pre>
+Vue.component('example', {
+	props: {
+		// 기본 타입 확인 (null은 어떤 타입이던 가능하다는 것입니다)
+		propA: Number,
+		// 여러개 가능한 타입
+		propB: [String, Number],
+		// 문자열이며 꼭 필요함 약간 jquery validation 같이 사용하면 되겠네요!
+		propC: {
+			type: String,
+			required: trur
+		},
+		// 숫자이며 기본값을 꼭 가짐
+		propD: {
+			type: Number,
+			default: 100
+		},
+		// 객체 배열의 기본값은 팩토리 함수에서 반환 되어야 함
+		propE: {
+			type: Object,
+			default: function() {
+				return { message: '저는 기본값입니다.'}
+			}
+		},
+		// 사용자 정의 유효성 검사
+		propF: {
+			validator: function(value) {
+				return value &gt; 10
+			}
+		}
+	}
+})
+				</pre>
+			</div>
+			<div id="prop04">
+				<p>사용할 수 있는 type은 아래와 같아요</p>
+				<ul>
+					<li v-for="type in types">{{ type }}</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="alert alert-block alert-info">
+			<h5>7. v-on을 이용한 사용자 지정 이벤트</h5>
+			<p class="mt-1">모든 Vue 인스턴스는 이벤트 인터페이스를 구현합니다</p>
+			<br />
+			<p class="mt-1">1. $on(eventName) 을 사용하여 이벤트를 감지한다</p>
+			<p class="mt-1">2. $emit(eventName) 을 사용하여 이벤트를 트리거한다</p>
+			<p class="mt-1 text-danger">브라우저의 EventTarget API와 별개입니다!! addEventListener, dispatchEvent 와 같은게 아닙니다.</p>
+			<p class="mt-1 text-danger">$on은 자식에서 호출한 이벤트는 감지하지 않아요!!</p>
+
+			<div id="counter-event-example">
+				<p>Total: {{ total }}</p>
+				<button-counter v-on:increment="incrementTotal"></button-counter>
+				<button-counter v-on:increment="incrementTotal"></button-counter>
+			</div>
+		</div>
+	</div>
+</div>
