@@ -10,7 +10,8 @@ var ip = require('ip');
 // get crypto
 var crypto = require('crypto');
 // login module
-var passport = require('passport');
+// var passport = require('passport');
+
 
 
 router.get('/', function(req, res, next) {
@@ -245,15 +246,5 @@ router.post('/update/todo/done', function(req, res) {
         }
     );
 });
-
-
-
-// router.post('/api', passport.authenticate('local', {
-//     failureRedirect: '/todo'
-// }), function(req, res) {
-//     console.log('return okokok');
-//     res.redirect('/');
-// });
-
 
 module.exports = router;
