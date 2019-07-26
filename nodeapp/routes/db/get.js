@@ -2,52 +2,32 @@ var express = require('express');
 var router = express.Router();
 
 // mysql module import
-var mysqlCon = require('../db/dbConn')();
+var mysqlCon = require('../../db/dbConn')();
 var connection = mysqlCon.init();
 
-// get ip
-var ip = require('ip');
-// get crypto
-var crypto = require('crypto');
-
-
-router.get('/', function(req, res, next) {
-    res.render('index.html');
+router.get('/malware', function(req, res, next) {
+    var params = req.query;
+    connection.query("select * from MALWARE_INFO;", function(err, result, fields) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
 });
 
-router.get('/:type(dashboard|icons|tables|todo|malwares|maps|profile|login|register)', function(req, res, next) {
-    res.render('index.html');
+router.get('/todo', function(req, res, next) {
+    var params = req.query;
+    connection.query("select * from todolist;", function(err, result, fields) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
 });
 
-router.get('/intro', function(req, res, next) {
-    res.render('intro/index.html');
-});
 
-// router.get('/get', function(req, res, next) {
-//     var params = req.query;
-
-//     // 게시판 모듈일 경우
-//     switch (params.type) {
-//         case 'board':
-//             connection.query("select * from test;", function(err, result, fields) {
-//                 if (err) {
-//                     console.log('쿼리에러');
-//                 } else {
-//                     res.send(result);
-//                 }
-//             });
-//             break;
-//         case 'todo':
-//             connection.query("select * from todolist;", function(err, result, fields) {
-//                 if (err) {
-//                     console.log('쿼리에러');
-//                 } else {
-//                     res.send(result);
-//                 }
-//             });
-//             break;
-//     }
-// });
 
 // router.post('/add', function(req, res) {
 //     var body = req.body;
