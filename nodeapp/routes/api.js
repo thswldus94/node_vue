@@ -35,12 +35,12 @@ router.get('/logout', function(req, res) {
 router.get('/session', ensureAuthenticated, function(req, res) {
   // deserilizUser에서 추가로 저장한 정보까지 받음
   var userInfo = req.user;
-  console.log(userInfo);
+  //console.log(userInfo);
   res.json(userInfo);
 });
 
 function ensureAuthenticated(req, res, next) {
-  console.log(req);
+  //console.log(req);
   if (req.isAuthenticated()) { // 현재 session이 유효한 세션인지
       // 유효하면 다음으로
       return next();

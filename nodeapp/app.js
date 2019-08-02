@@ -7,8 +7,15 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-// router setting
+// custom router setting
 var apiRouter = require('./routes/api');
+var uploadRouter = require('./routes/upload');
+var vueRouter = require('./routes/vue');
+// db router setting
+var dbGetRouter = require('./routes/db/get');
+var dbAddRouter = require('./routes/db/add');
+var dbUpdateRouter = require('./routes/db/update');
+var dbDeleteRouter = require('./routes/db/delete');
 // login module
 var passport = require('passport');
 var passportConfig = require('./routes/passport');
@@ -25,13 +32,13 @@ var fs = require('fs');
 app.set('port', 3000);
 
 var options = {
-    key: fs.readFileSync('./ssl/private.pem'),
-    cert: fs.readFileSync('./ssl/public.pem')
+	key: fs.readFileSync('./ssl/private.pem'),
+	cert: fs.readFileSync('./ssl/public.pem')
 };
 
 var httpsServer = https.createServer(options, app);
 httpsServer.listen('3000', function() {
-    console.log("https start");
+	console.log("https start");
 });
 // http, https end
 
@@ -66,6 +73,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
+app.use('/upload', uploadRouter);
+app.use('/vue', vueRouter);
+// db handling router path
+app.use('/get', dbGetRouter);
+app.use('/add', dbAddRouter);
+app.use('/update', dbUpdateRouter);
+app.use('/delete', dbDeleteRouter);
 
 
 // catch 404 and forward to error handler
