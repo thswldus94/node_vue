@@ -56,6 +56,23 @@ router.get('/board', function(req, res, next) {
     );
 });
 
+router.get('/board/view/:id', function(req, res, next) {
+    var id = req.params.id;
+
+    connection.query("select user.id as uname, board.title as title, board.content as content, \
+            board.rdate as rdate, board.udate as udate, board.hit as hit \
+            from board left outer join user \
+            on board.uid = user.uid where board.id = ?", [id], 
+        function(err, result, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result[0]);
+            }
+        }
+    );
+});
+
 router.get('/todo', function(req, res, next) {
     var id = req.params.id;
 

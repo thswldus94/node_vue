@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/assets/img/theme/team-2-800x800.jpg"
   },
   {
-    "revision": "1f2f3e6ef546b5daffda",
-    "url": "/assets/js/demo.01bc9418.js"
+    "revision": "9b78441cbf1833e528c5",
+    "url": "/assets/js/demo.6fcf55f5.js"
   },
   {
     "revision": "54e3f3c414bd8e7234bae3ee3be950e5",
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/assets/img/theme/vue.jpg"
   },
   {
-    "revision": "f718e5501f6305e9af9d0525a62611c5",
+    "revision": "d7a8be6d964d6dc5d39c4d3c6038133d",
     "url": "/assets/index.html"
   },
   {
@@ -48,8 +48,8 @@ self.__precacheManifest = [
     "url": "/assets/img/theme/sketch.jpg"
   },
   {
-    "revision": "a1fa8cf65b9a00300723",
-    "url": "/assets/js/app.16955fd8.js"
+    "revision": "17bc217b4e76f405846f",
+    "url": "/assets/js/app.a97ccbde.js"
   },
   {
     "revision": "50dd5fdc839dfc16739b15370650485c",
@@ -92,11 +92,11 @@ self.__precacheManifest = [
     "url": "/assets/fonts/nucleo-icons.2569aaea.woff"
   },
   {
-    "revision": "1f2f3e6ef546b5daffda",
-    "url": "/assets/css/demo.a997f785.css"
+    "revision": "9b78441cbf1833e528c5",
+    "url": "/assets/css/demo.b8d54eb3.css"
   },
   {
-    "revision": "a1fa8cf65b9a00300723",
+    "revision": "17bc217b4e76f405846f",
     "url": "/assets/css/app.97d9da92.css"
   }
 ];
