@@ -23,4 +23,18 @@ router.get('/todo/:id', function(req, res, next) {
     );
 });
 
+router.get('/board/:id', function(req, res, next) {
+    var id = req.params.id;
+    connection.query("delete from board where id = ?",
+        [id],
+        function(err, result, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
+
 module.exports = router;
