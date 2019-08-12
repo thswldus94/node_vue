@@ -96,6 +96,45 @@ router.get('/todo/:id', function(req, res, next) {
     });
 });
 
+router.get('/stat', function(req, res, next) {
+    connection.query("select (select count from stat_news order by rdate desc limit 1) as count, \
+                    (select count from stat_news order by rdate desc limit 1, 1) as yester_count, \
+                    t1.cpu_usage, t1.memory_usage, t1.disk_usage from system_info t1 \
+                    order by t1.rdate desc limit 2", function(err, result, fields) {
+        if (err) {
+            console.log(err);
+        } else {
+            var countAverage = (result[0]['count'] + result[0]['yester_count']) / 2;
+            var cpuAverage = (result[0]['cpu_usage'] + result[1]['cpu_usage']) / 2;
+            var memAverage = (result[0]['memory_usage'] + result[1]['memory_usage']) / 2;
+            var diskAverage = (result[0]['disk_usage'] + result[1]['disk_usage']) / 2;
+
+            var newsPer = countAverage > 0 ? result[0]['count'] / countAverage * 100 : 0.00;
+            var cpuPer = cpuAverage > 0 ? result[0]['cpu_usage'] / cpuAverage * 100 : 0.00;
+            var memPer = memAverage > 0 ? result[0]['memory_usage'] / memAverage * 100 : 0.00;
+            var diskPer = diskAverage > 0 ? result[0]['disk_usage'] / diskAverage * 100 : 0.00;
+
+            var stats = {
+                'newsCount' : result[0]['count'],
+                'yesterNewsCount' : result[0]['yester_count'],
+                'newsPer' : newsPer.toFixed(2),
+                'newsArrow' : result[0]['count'] > result[0]['yester_count'] ? 'up' : 'down',
+                'cpu' : result[0]['cpu_usage'],
+                'cpuPer' : cpuPer.toFixed(2),
+                'cpuArrow' : result[0]['cpu_usage'] > result[1]['cpu_usage'] ? 'up' : 'down',
+                'mem' : result[0]['memory_usage'],
+                'memPer' : memPer.toFixed(2),
+                'memArrow' : result[0]['memory_usage'] > result[1]['memory_usage'] ? 'up' : 'down',
+                'disk' : result[0]['disk_usage'],
+                'diskPer' : diskPer.toFixed(2),
+                'diskArrow' : result[0]['disk_usage'] > result[1]['disk_usage'] ? 'up' : 'down'
+            };
+            res.send(stats);
+        }
+    });
+});
+
+
 
 function countQuery() {
     return new Promise((resolve, reject) => {
