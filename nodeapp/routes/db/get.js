@@ -134,6 +134,25 @@ router.get('/stat', function(req, res, next) {
     });
 });
 
+router.get('/stat/system', function(req, res, next) {
+    connection.query("SELECT UNIX_TIMESTAMP(rdate) as rdate, memory_usage FROM system_info limit 10", function(err, result, fields) {
+        if (err) {
+            console.log(err);
+        } else {
+            var stat = [];
+            for (var i = 0; i < result.length; i++) {
+                stat.push({
+                    x : result[i].rdate * 1000,
+                    y : result[i].memory_usage
+                });
+            }
+            res.send(stat);
+        }
+    });
+});
+
+
+
 
 
 function countQuery() {
