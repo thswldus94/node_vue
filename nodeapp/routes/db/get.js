@@ -135,17 +135,27 @@ router.get('/stat', function(req, res, next) {
 });
 
 router.get('/stat/system', function(req, res, next) {
-    connection.query("SELECT UNIX_TIMESTAMP(rdate) as rdate, memory_usage FROM system_info limit 10", function(err, result, fields) {
+    var type = req.params.type;
+    connection.query("SELECT UNIX_TIMESTAMP(rdate) as rdate, memory_usage, cpu_usage FROM system_info limit 10", function(err, result, fields) {
         if (err) {
             console.log(err);
         } else {
-            var stat = [];
+            var stat = {
+                'cpu' : [],
+                'mem' : []
+            };
             for (var i = 0; i < result.length; i++) {
-                stat.push({
+                stat.mem.push({
                     x : result[i].rdate * 1000,
                     y : result[i].memory_usage
                 });
+
+                stat.cpu.push({
+                    x : result[i].rdate * 1000,
+                    y : result[i].cpu_usage
+                });
             }
+
             res.send(stat);
         }
     });
