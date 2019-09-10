@@ -39,7 +39,10 @@ router.get('/news', function(req, res, next) {
 router.get('/board', function(req, res, next) {
     var params = req.query;
 
-    connection.query("select SQL_CALC_FOUND_ROWS * from board order by rdate desc limit ?, ?", 
+    connection.query("select SQL_CALC_FOUND_ROWS board.id, user.id as user, title, content, hit, rdate, udate \
+        from board left outer join user on board.uid = user.uid \
+        order by rdate desc limit ?, ? \
+    ", 
         [parseInt(params.offset), parseInt(params.limit)], 
         // 쿼리 가져오는것에 있어서 동기 처리 하기 위하여 설정
         async function(err, result, fields) {
