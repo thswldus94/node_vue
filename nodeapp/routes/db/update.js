@@ -43,4 +43,19 @@ router.post('/todo/done/:id', function(req, res) {
     );
 });
 
+router.post('/board/:id', function(req, res) {
+    var id = req.params.id;
+    var body = req.body;
+    connection.query("update board set title = ?, content = ?, udate = now() where id = ?",
+        [body.title, body.content, id],
+        function(err, result, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
+
 module.exports = router;

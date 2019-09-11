@@ -46,7 +46,8 @@ module.exports = function() {
                             return done(false, null, {state: false, message: '비밀번호가 일치하지 않습니다.'});;
                         } else {
                             return done(null, {
-                                'id': id,
+                                'uid': result[0].uid,
+                                'id': result[0].id,
                                 'email' : result[0].email
                             }, {state: true});
                         }

@@ -38,8 +38,8 @@ router.get('/news', function(req, res, next) {
 
 router.get('/board', function(req, res, next) {
     var params = req.query;
-
-    connection.query("select SQL_CALC_FOUND_ROWS board.id, user.id as user, title, content, hit, rdate, udate \
+    console.log(req.user);
+    connection.query("select SQL_CALC_FOUND_ROWS board.id, user.id as user, user.uid as uid, title, content, hit, rdate, udate \
         from board left outer join user on board.uid = user.uid \
         order by rdate desc limit ?, ? \
     ", 
@@ -62,7 +62,7 @@ router.get('/board', function(req, res, next) {
 router.get('/board/view/:id', function(req, res, next) {
     var id = req.params.id;
 
-    connection.query("select user.id as uname, board.title as title, board.content as content, \
+    connection.query("select user.id as uname, user.uid as uid, board.title as title, board.content as content, \
             board.rdate as rdate, board.udate as udate, board.hit as hit \
             from board left outer join user \
             on board.uid = user.uid where board.id = ?", [id], 

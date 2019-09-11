@@ -40,14 +40,17 @@ router.get('/session', ensureAuthenticated, function(req, res) {
 });
 
 function ensureAuthenticated(req, res, next) {
-  //console.log(req);
   if (req.isAuthenticated()) { // 현재 session이 유효한 세션인지
       // 유효하면 다음으로
       return next();
+  } else if (req.user === undefined) {
+		res.status(200);
+		res.json({});
+  } else {
+        // 유효하지 않은 경우
+        res.status(401);
+        res.json({});
   }
-  // 유효하지 않은 경우
-  res.status(401);
-  res.json({});
 }
 
 module.exports = router;

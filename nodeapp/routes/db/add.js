@@ -46,9 +46,15 @@ router.post('/register', function(req, res) {
 
 router.post('/board', function(req, res) {
     var body = req.body;
+    var userInfo = req.user;
+    var uid = -1;
+    if (userInfo !== undefined && userInfo !== null) {
+        uid = userInfo.uid;
+    }
+    
     connection.query("insert into board(uid, title, content, file_upload, rdate, udate) \
                         values (?, ?, ?, ?, now(), now())",
-        [body.uid, body.title, body.content, body.file_upload],
+        [uid, body.title, body.content, body.file_upload],
         function(err, result, fields) {
             if (err) {
                 console.log(err);
