@@ -49,6 +49,12 @@ router.get('/board', function(req, res, next) {
             if (err) {
                 console.log(err);
             } else {
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i]['user'] === null) {
+                        result[i]['user'] = '지나가던 행인';
+                    }
+                }
+
                 var rows = {
                     count: await countQuery(),
                     data: result
@@ -70,6 +76,9 @@ router.get('/board/view/:id', function(req, res, next) {
             if (err) {
                 console.log(err);
             } else {
+                if (result[0]['uname'] === null) {
+                    result[0]['uname'] = '지나가던 행인';
+                }
                 res.send(result[0]);
             }
         }

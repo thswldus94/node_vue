@@ -58,4 +58,19 @@ router.post('/board/:id', function(req, res) {
     );
 });
 
+router.get('/board/:id/hit', function(req, res) {
+    var id = req.params.id;
+    
+    connection.query("update board set hit = hit + 1 where id = ?",
+        [id],
+        function(err, result, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        }
+    );
+});
+
 module.exports = router;
