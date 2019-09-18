@@ -65,7 +65,7 @@ router.get('/board', function(req, res, next) {
     );
 });
 
-router.get('/board/view/:id', function(req, res, next) {
+router.get('/board/detail/:id', function(req, res, next) {
     var id = req.params.id;
 
     connection.query("select user.id as uname, user.uid as uid, board.title as title, board.content as content, \
