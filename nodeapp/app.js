@@ -19,17 +19,15 @@ var dbDeleteRouter = require('./routes/db/delete');
 // login module
 var passport = require('passport');
 var passportConfig = require('./routes/passport');
+// socket module
+var socket = require('./routes/socket');
 
 var app = express();
-
-
 
 // http, https and certification start
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
-
-app.set('port', 3000);
 
 var options = {
 	key: fs.readFileSync('./ssl/private.pem'),
@@ -40,8 +38,23 @@ var httpsServer = https.createServer(options, app);
 httpsServer.listen('3000', function() {
 	console.log("https start");
 });
+// socket module
+socket.socketServer(app, httpsServer);
+
+
+
+
+// var httpServer = http.createServer(app);
+// httpServer.listen('3000', function() {
+// 	console.log("http start");
+// });
+
+app.set('port', 3000);
 // http, https end
 
+app.get('/aaa', function(req,res){
+  res.render('aaa.html');
+});
 
 // Login module setting start
 app.use(session({
@@ -97,5 +110,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+
+
+
 
 module.exports = app;
