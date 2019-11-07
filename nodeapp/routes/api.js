@@ -32,6 +32,14 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), function(req, res) {
+	// console.log(res);
+	//res.redirect('https://www.naver.com');
+	res.redirect('/');
+});
+
 router.get('/session', ensureAuthenticated, function(req, res) {
   // deserilizUser에서 추가로 저장한 정보까지 받음
   var userInfo = req.user;

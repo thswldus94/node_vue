@@ -21,6 +21,8 @@ var passport = require('passport');
 var passportConfig = require('./routes/passport');
 // socket module
 var socket = require('./routes/socket');
+// body parser
+var bodyParser = require("body-parser");
 
 var app = express();
 
@@ -52,9 +54,7 @@ socket.socketServer(app, httpsServer);
 app.set('port', 3000);
 // http, https end
 
-app.get('/aaa', function(req,res){
-  res.render('aaa.html');
-});
+
 
 // Login module setting start
 app.use(session({
@@ -81,6 +81,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // router path 
 app.use('/', indexRouter);

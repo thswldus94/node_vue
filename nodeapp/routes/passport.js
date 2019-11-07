@@ -1,4 +1,6 @@
 const passport = require('passport');
+
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 
 var mysqlCon = require('../db/dbConn')();
@@ -20,8 +22,8 @@ module.exports = function() {
     // 서버로 요청이 들어올 때마다 세션정보를 실제 DB데이터랑 비교함
     // 있으면 user에 저장함.
     passport.deserializeUser(function(user, done) {
-        // dl user가 req.user가 됨
-        console.log(user);
+        // 이 user가 req.user가 됨
+        //console.log(user);
         done(null, user);
     });
 
@@ -58,4 +60,26 @@ module.exports = function() {
             }
         );
     }));
+
+
+
+    var googleCredentials = require('../config/google.json');
+
+    passport.use(new GoogleStrategy({
+		clientID: googleCredentials.web.client_id,
+		clientSecret: googleCredentials.web.client_secret,
+        callbackURL: "http://regedit.synology.me:38080/api/google/callback"
+        //callbackURL: "/api/google/callback"
+	}, function(accessToken, refreshToken, profile, done) {
+		process.nextTick(function(){	
+            //return done(null, profile);
+            return done(null, {
+                'uid': profile.id,
+                'id': profile.displayName,
+                'email' : '',
+                'picture' : profile._json.picture
+            }, {state: true});
+		});
+	}
+));
 }
