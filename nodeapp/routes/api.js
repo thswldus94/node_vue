@@ -61,4 +61,10 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
+
+
+// jwt token 발급 기능
+var jwt = require('./jwt/index');
+router.post('/auth/token', jwt.generateToken);
+
 module.exports = router;
