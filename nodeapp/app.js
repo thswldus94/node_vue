@@ -114,7 +114,9 @@ app.use(function(err, req, res, next) {
 
 
 
-
+// jwt config
+const config = require('./config/jwt_config');
+app.set('jwt-secret', config.secret);
 
 
 
